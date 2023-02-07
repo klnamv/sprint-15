@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+    .pos_h{
+        text-align: center;
+    }
+.pos_div {
+  color: WHITE;
+  background: cadetblue;
+  height: 200px;
+  position: relative;
+    margin-left: auto;
+margin-right: auto;
+left: 0;
+right: 0;
+  border-radius: 15px;
+    text-align: center;
+  width: 420px;
+}
+</style>
+</head>
 <body>
-
+<div  >
 <form action="" method="get">
-    <label f>{{authors}} </label>
-</form>
+    <h1  class="pos_h" >Information about all authors:</h1>
+    <ul>
+    {% for author in authors %}
+        <div class="pos_div" >
+            <p>Name:  {{ author.name }}</p>
+            <p>Surname:  {{ author.surname }}</p>
+             <p>Patronymic:  {{ author.patronymic }}</p>
+            <p>Books:  {{ author.books }}</p>
+        </div>
 
+    {% endfor %}
+        </ul>
+</form>
+</div>
 
 </body>
 
