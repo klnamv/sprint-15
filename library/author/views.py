@@ -8,8 +8,27 @@ from book.models import Book
 
 
 def authors_info(request):
-    authors = list(Author.get_all())
-    context = {'authors': authors}
+    # authors = [author for author in  if str(author.books) != "book.Book.None"]
+    authors = Author.get_all()
+    new_authors = []
+
+    for author in authors:
+        new_author_books = list(Book.objects.filter(authors=author))
+        book_names = ', '.join(book.name for book in new_author_books)
+        new_author = {
+            'name': author.name,
+            'surname': author.surname,
+            'patronymic': author.patronymic,
+
+        }
+        if not new_author_books:
+            new_author['books'] = "No books"
+        else:
+            new_author['books'] = book_names
+        new_authors.append(new_author)
+
+    context = {'authors': new_authors}
+
     return render(request, 'authors_info.html', context)
 
 
@@ -31,4 +50,4 @@ def remove_author(request):
     if len(Book.objects.filter(authors=author)) <= 0:
         Author.delete_by_id(author_id)
 
-    return render(request, 'remove_author.html')
+    return render(request, 'remove_author.html', status=400)
