@@ -8,23 +8,70 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def orders_by_librarian(request):
-    orders = Order.get_all()
-    context = {'orders': orders}
+    orders = set(Order.get_all())
+    # orders = list(Order.objects.all().distinct().values())
+    # print(orders)
+    new_orders = []
+    try:
+
+        for order in orders:
+            client = CustomUser.objects.get(id=order.user_id)
+            books = Book.objects.get(id=order.book_id).name
+            new_order = {
+                'id': order.id,
+                'created_at': order.created_at,
+                'end_at': order.end_at,
+                'plated_end_at': order.plated_end_at.date(),
+                'client_info': f"{client.first_name} {client.last_name}",
+                'books': books,
+            }
+            new_orders.append(new_order)
+
+    except Exception as e:
+        print(e)
+    context = {'orders': new_orders}
     return render(request, 'librarian_orders.html', context)
 
 
 def orders_by_user(request, id):
-    orders = list(Order.objects.filter(user_id=id).values())
-    context = {'orders': orders}
+    user = CustomUser.get_by_id(id)
+    # orders = list(Order.objects.filter(user_id=id).values())
+    orders = Order.objects.filter(user=user.id)
+    new_orders = []
+    reader = ''
+    try:
+
+        for order in orders:
+            client = CustomUser.get_by_id(order.user_id)
+            books = Book.objects.get(id=order.book_id).name
+            new_order = {
+                'id': order.id,
+                'created_at': order.created_at,
+                'end_at': order.end_at,
+                'plated_end_at': order.plated_end_at.date(),
+                'client_info': f"{client.first_name} {client.last_name}",
+                'books': books,
+            }
+            new_orders.append(new_order)
+            reader = new_order['client_info']
+    except Exception as e:
+        print(e)
+    context = {
+        'reader': reader,
+        'orders': new_orders
+    }
     return render(request, 'user_orders.html', context)
 
 
 @csrf_exempt
 def create_order(request, id):
-    book_id = request.POST.get('book_id')
-    print(f'response: {book_id}')
-    Order.create(CustomUser.objects.get(id=id), Book.objects.get(id=book_id),
+    try:
+        book_id = request.POST.get('book_id')
+        print(f'response: {book_id}')
+        Order.create(CustomUser.objects.get(id=id), Book.objects.get(id=book_id),
                  plated_end_at=datetime.today() + timedelta(days=20))
+    except Exception:
+        pass
     return render(request, 'create_order.html')
 
 
