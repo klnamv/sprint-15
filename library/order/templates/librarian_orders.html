@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All orders in the library</title>
+
+<style>
+    .pos_h{
+        text-align: center;
+    }
+.pos_div {
+  color: WHITE;
+  background: cadetblue;
+  height: 300px;
+  position: relative;
+    margin-left: auto;
+margin-right: auto;
+left: 0;
+right: 0;
+  border-radius: 15px;
+    text-align: center;
+  width: 500px;
+    margin-top: 20px;
+}
+</style>
+
+</head>
+<body>
+<h1 style="text-align: center; ">All orders in the library</h1>
+<form  action="" method="get">
+    {% for order in orders %}
+    <div class="pos_div">
+
+
+        <h4>Order Number: {{ order.id }}</h4>
+        <h4>Reader info: {{ order.client_info }}</h4>
+        <h4>Books info: {{ order.books }}</h4>
+        <h4>Created at: {{ order.created_at }}</h4>
+        <h4>End at: {{ order.end_at }}</h4>
+        <h4>Planed end at: {{ order.plated_end_at }}</h4>
+
+        </div>
+      {% endfor %}
+</form>
+</body>
+</html>
