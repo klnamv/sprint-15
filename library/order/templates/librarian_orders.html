@@ -26,6 +26,8 @@ right: 0;
 
 </head>
 <body>
+{% extends 'base.html' %}
+{% block content %}
 <h1 style="text-align: center; ">All orders in the library</h1>
 <form  action="" method="get">
     {% for order in orders %}
@@ -42,5 +44,6 @@ right: 0;
         </div>
       {% endfor %}
 </form>
+{% endblock %}
 </body>
 </html>

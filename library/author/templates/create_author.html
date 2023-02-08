@@ -5,8 +5,8 @@
     <title>Create Author</title>
     <style>
         .div{
-            margin-top: 150px;
-            margin-left: 780px;
+            margin-left: auto;
+            margin-right: auto;
             text-align: center;
             background: cadetblue;
             width: 400px;
@@ -14,6 +14,8 @@
     </style>
 </head>
 <body>
+{% extends 'base.html' %}
+{% block content %}
 <h1 style="text-align: center; margin: 15px;">Create author</h1>
 <form method="post">
     <div class="div">
@@ -26,6 +28,7 @@
     <input style="margin: 30px;" type="submit" value="Submit">
         </div>
 </form>
+{% endblock %}
 </body>
 </html>
 

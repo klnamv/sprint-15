@@ -9,11 +9,13 @@
 {% extends "base.html" %}
 {% block content %}
 <h1 style="text-align: center">{{book.name}}</h1>
-<form action="" method="get">
+<form action="{% url 'order:create_order' id=book.id %}" method="get">
     <div class="dev">
         <h3> Name: {{book.name}}</h3>
         <h3> Description: {{book.description}}</h3>
         <h3> Count: {{book.count}}</h3>
+
+        <button type="submit">Order</button>
     </div>
 </form>
 {% endblock %}

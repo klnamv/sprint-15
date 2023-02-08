@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <title>Log in</title>
     <style>
-        .body {
-            position: relative;
-            width: 50%;
-        }
         .log_in {
-            border: 5px outset #023047;
-            background: #219ebc;
+            border: 3px outset #fefae0;
+            background: #ccd5ae;
+            color: #2b2d42;
             position: relative;
             text-align: center;
             height: 300px;
@@ -18,27 +15,46 @@
             margin-top: 200px;
             margin-left: auto;
             margin-right: auto;
+            border-radius: 15px;
+        }
+        .post{
+            line-height: 2.5;
+            text-align: left;
+            margin-left: 25px;
+        }
+        .input{
+            width: 340px;
+            height: 25px;
+        }
+        .btn-primary{
+            text-align: center;
+            background: #fefae0;
+            border: 2px outset #fefae0;
+            border-radius: 5px;
+            width: 100px;
+            height: 25px;
         }
     </style>
 </head>
-<body style="background: #8ecae6">
+<body style="background: #e9edc9">
+
     {% block content %}
 
     <!--Register-->
     <div class="log_in">
-        <h1 style="color:white;">Log in</h1>
+        <h1>Log in</h1>
 
-        <p style="color:white";>Log in with your email account</p>
+        <p>Log in with your email account</p>
 
-        <form method="POST">
+        <form method="POST" class="post">
         {% csrf_token %}
         {{ register_form }}
 
-            <input type="email" placeholder="Email" name="email" size="50"></br>
+            <input class="input" type="email" placeholder="Email" name="email"></br>
 
-            <input type="password" placeholder="Password" name="password" size="50"></br>
+            <input class="input" type="password" placeholder="Password" name="password"></br>
 
-            <button class="btn btn-primary" type="submit">Log in</button>
+            <button class="btn-primary" type="submit">Log in</button>
         </form>
         <p>{{ Error_message }}</p>
         <p class="text-center"> <a href="/librarian/sign_up/">Don't have account yet?</a></p>

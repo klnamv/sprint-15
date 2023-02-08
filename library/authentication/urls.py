@@ -4,7 +4,7 @@ from book.views import book_list
 
 app_name = 'auth'
 urlpatterns = [
-    path('user/', views.users_info),
+    path('user/', views.users_info, name='users'),
     path('user/<int:id>/', views.user_info),
     path('log_in/', views.log_in, name='log_in'),
     path('sign_up/', views.sign_up),

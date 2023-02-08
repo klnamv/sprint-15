@@ -1,0 +1,19 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<div class="navbar">
+    <a href="{% url 'auth:log_out' %}">Home</a>
+    <a href="{% url 'book:book_list' %}">Books</a>
+    <a href="{% url 'order:orders' %}">Orders</a>
+    {% if user.role == 1 %}
+    <a href="{% url 'author:authors' %}">Authors</a>
+    <a href="{% url 'auth:users' %}">Users</a>
+    {% endif %}
+    <a href="{% url 'auth:log_out' %}">log out</a>
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+

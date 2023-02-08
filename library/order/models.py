@@ -1,5 +1,5 @@
 from django.db import models, DataError
-
+import datetime
 from authentication.models import CustomUser
 from book.models import Book
 
@@ -22,9 +22,12 @@ class Order(models.Model):
        """
     book = models.ForeignKey(Book, on_delete=models.CASCADE, default=None)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
-    created_at = models.DateTimeField(auto_now_add=True)
-    end_at = models.DateTimeField(default=None, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    end_at = models.DateTimeField(null=True, blank=True)
     plated_end_at = models.DateTimeField(default=None)
+
+    #created_at_2 = models.DateTimeField(auto_now_add=True, editable=False)
+
 
     def __str__(self):
         """
@@ -70,13 +73,14 @@ class Order(models.Model):
 
     @staticmethod
     def create(user, book, plated_end_at):
-        orders = Order.objects.all()
-        books = set()
-        for order in orders:
-            if not order.end_at:
-                books.add(order.book.id)
-        if book.id in books and book.count == 1:
-            return None
+        # orders = Order.objects.all()
+        # print('create_order')
+        # books = set()
+        # for order in orders:
+        #     if not order.end_at:
+        #         books.add(order.book.id)
+        # if book.id in books and book.count == 1:
+        #     return None
         try:
             order = Order(user=user, book=book, plated_end_at=plated_end_at)
             order.save()
@@ -102,7 +106,7 @@ class Order(models.Model):
 
     @staticmethod
     def get_all():
-        return list(Order.objects.all())
+        return Order.objects.all()
 
     @staticmethod
     def get_not_returned_books():

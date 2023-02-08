@@ -20,6 +20,8 @@
     </style>
 </head>
 <body>
+{% extends 'base.html' %}
+{% block content %}
 <form method="post">
     <h1 style="text-align: center;" >Close the order</h1>
     <div class="cart">
@@ -27,6 +29,6 @@
     <input type="text" name="order_id"/><br/>
         </div>
 </form>
-
+{% endblock %}
 </body>
 </html>

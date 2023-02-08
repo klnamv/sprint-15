@@ -29,5 +29,6 @@ def book_info(request, id):
     context = {'book': book}
     return render(request,'book.html', context)
 
-def search(request):
-    print('heyyyyy')
+def create(request):
+    if request.user.role != 1:
+        return redirect('book:book_list')

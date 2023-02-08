@@ -19,8 +19,9 @@
     </style>
 </head>
 <body>
-
-<h1 style="text-align: center">All readers</h1>
+{% extends 'base.html' %}
+{% block content %}
+<h1 style="text-align: center">Users</h1>
 <form action="" method="get">
 
     {% for user in users %}
@@ -35,9 +36,7 @@
     {% endfor %}
 
 </form>
-
-
+{% endblock %}
 </body>
-
 </html>
 

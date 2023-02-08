@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from order.models import Order
 from authentication.models import CustomUser
 from book.models import Book
@@ -8,14 +8,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def orders_by_librarian(request):
-    orders = set(Order.get_all())
+    if request.user.role != 1:
+        return redirect('order:order', id=request.user.id)
+    orders = Order.get_all()
     # orders = list(Order.objects.all().distinct().values())
-    # print(orders)
     new_orders = []
-    try:
-
-        for order in orders:
-            client = CustomUser.objects.get(id=order.user_id)
+    for order in orders:
+        try:
+            print(order.user_id)
+            client = CustomUser.get_by_id(order.user_id)
+            #client = CustomUser.objects.get(id=order.user_id)
             books = Book.objects.get(id=order.book_id).name
             new_order = {
                 'id': order.id,
@@ -25,10 +27,10 @@ def orders_by_librarian(request):
                 'client_info': f"{client.first_name} {client.last_name}",
                 'books': books,
             }
+            print(new_order)
             new_orders.append(new_order)
-
-    except Exception as e:
-        print(e)
+        except Exception as e:
+            print(e)
     context = {'orders': new_orders}
     return render(request, 'librarian_orders.html', context)
 
@@ -66,13 +68,19 @@ def orders_by_user(request, id):
 @csrf_exempt
 def create_order(request, id):
     try:
-        book_id = request.POST.get('book_id')
+        book_id = id
+        book = Book.get_by_id(book_id)
+        if book.count <= 0:
+            return redirect('book:book_list')
+        user_id = request.user.id
         print(f'response: {book_id}')
-        Order.create(CustomUser.objects.get(id=id), Book.objects.get(id=book_id),
+        print(CustomUser.get_by_id(user_id))
+        order = Order.create(CustomUser.get_by_id(user_id), Book.objects.get(id=book_id),
                  plated_end_at=datetime.today() + timedelta(days=20))
-    except Exception:
-        pass
-    return render(request, 'create_order.html')
+        book.update(count = book.count - 1)
+    except Exception as e:
+        print(e)
+    return redirect('book:book_list')
 
 
 @csrf_exempt

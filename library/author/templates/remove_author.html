@@ -19,6 +19,8 @@ right: 0;
     </style>
 </head>
 <body>
+{% extends 'base.html' %}
+{% block content %}
 <h1 style="text-align: center">Remove author by id</h1>
 <form class="table" method="post">
 
@@ -27,5 +29,6 @@ right: 0;
     <input style="margin: 30px;" type="submit" value="Submit">
 
 </form>
+{% endblock %}
 </body>
 </html>

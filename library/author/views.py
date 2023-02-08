@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 
@@ -8,6 +8,8 @@ from book.models import Book
 
 
 def authors_info(request):
+    if request.user.role != 1:
+        return redirect('book:book_list')
     # authors = [author for author in  if str(author.books) != "book.Book.None"]
     authors = Author.get_all()
     new_authors = []
@@ -34,6 +36,8 @@ def authors_info(request):
 
 @csrf_exempt
 def create_author(request):
+    if request.user.role != 1:
+        return redirect('book:book_list')
     name = request.POST.get('author_name')
     surname = request.POST.get('surname')
     patronymic = request.POST.get('patronymic')
@@ -44,6 +48,8 @@ def create_author(request):
 
 @csrf_exempt
 def remove_author(request):
+    if request.user.role != 1:
+        return redirect('book:book_list')
     author_id = request.POST.get('author_id')
     author = Author.get_by_id(author_id)
 
