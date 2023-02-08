@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <style>
+        .cart{
+            position: relative;
+            text-align: center;
+            background: cadetblue;
+            height: 70px;
+            width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            margin-top: 200px;
+        }
+        form{
+            text-align: center;
+            background-color: pink;
+        }
+    </style>
+
+</head>
+<body>
+    {% block content %}
+
+    <!--Register-->
+    <div class="">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+        <form method="POST">
+        {% csrf_token %}
+        {{ register_form }}
+
+            <label for="f_name"><b>First name</b></label>
+            <input type="text" placeholder="First name" name="f_name"></br>
+
+            <label for="m_name"><b>Middle name</b></label>
+            <input type="text" placeholder="Middle name" name="m_name"></br>
+
+            <label for="l_name"><b>Last name</b></label>
+            <input type="text" placeholder="Last name" name="l_name"></br>
+
+            <label for="email"><b>Email</b></label>
+            <input type="email" placeholder="Email" name="email"></br>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Password" name="password"></br>
+
+            <label for="password2"><b>Repeat Password</b></label>
+            <input type="password" placeholder="password" name="password2"></br>
+
+            <label for="is_admin">Admin</label>
+            <input type="checkbox" name="is_admin"></br>
+
+            <button class="btn btn-primary" type="submit">Sign up</button>
+        </form>
+        <p>{{ Error_message }}</p>
+      <p class="text-center">If you already have an account, <a href="/librarian/log_in/">Log in</a> instead.</p>
+    </div>
+
+    {% endblock %}
+</body>
+</html>

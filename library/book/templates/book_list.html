@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+</head>
+
+<body>
+{% extends "base.html" %}
+{% block content %}
+<h1 style="text-align: center">All books</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="search" placeholder="Search" name="search">
+    <button type="submit">search</button>
+</form>
+
+<form action="" method="get">
+    {% for book in books %}
+    <div class="dev">
+        <h3> Name: {{book.name}}</h3>
+        <h3> Description: {{book.description}}</h3>
+        <h3> Count: {{book.count}}</h3>
+        <h3>id: {{book.id}}</h3>
+        <a href="{% url 'book:book' book.id %}">more..</a>
+    </div>
+    {% endfor %}
+</form>
+{% endblock %}
+</body>
+
+</html>

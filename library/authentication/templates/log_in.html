@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <style>
+        .body {
+            position: relative;
+            width: 50%;
+        }
+        .log_in {
+            border: 5px outset #023047;
+            background: #219ebc;
+            position: relative;
+            text-align: center;
+            height: 300px;
+            width: 400px;
+            margin-top: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body style="background: #8ecae6">
+    {% block content %}
+
+    <!--Register-->
+    <div class="log_in">
+        <h1 style="color:white;">Log in</h1>
+
+        <p style="color:white";>Log in with your email account</p>
+
+        <form method="POST">
+        {% csrf_token %}
+        {{ register_form }}
+
+            <input type="email" placeholder="Email" name="email" size="50"></br>
+
+            <input type="password" placeholder="Password" name="password" size="50"></br>
+
+            <button class="btn btn-primary" type="submit">Log in</button>
+        </form>
+        <p>{{ Error_message }}</p>
+        <p class="text-center"> <a href="/librarian/sign_up/">Don't have account yet?</a></p>
+    </div>
+
+    {% endblock %}
+</body>
+</html>

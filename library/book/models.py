@@ -1,5 +1,7 @@
 from django.db import models
 
+import author.models
+
 
 class Book(models.Model):
     """
@@ -19,6 +21,7 @@ class Book(models.Model):
     description = models.CharField(blank=True, max_length=256)
     count = models.IntegerField(default=10)
     id = models.AutoField(primary_key=True)
+    authors = models.ManyToManyField(author.models.Author, related_name='books')
 
     def __str__(self):
         """
@@ -70,10 +73,7 @@ class Book(models.Model):
         if len(name) > 128:
             return None
 
-        book = Book()
-        book.name = name
-        book.description = description
-        book.count = count
+        book = Book(name=name, description=description, count=count)
         if (authors is not None):
             for elem in authors:
                 book.authors.add(elem)

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+{% extends "base.html" %}
+{% block content %}
+<h1 style="text-align: center">{{book.name}}</h1>
+<form action="" method="get">
+    <div class="dev">
+        <h3> Name: {{book.name}}</h3>
+        <h3> Description: {{book.description}}</h3>
+        <h3> Count: {{book.count}}</h3>
+    </div>
+</form>
+{% endblock %}
+</body>
+</html>
