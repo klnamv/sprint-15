@@ -1,19 +1,79 @@
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Navbar</title>
+    <style>
+        .body{
+            background: #e9edc9;
+            padding: 30px;
+            background-size: cover;
+            font-family: sans-serif;
+        }
+        .navbar{
+            list-style: none;
+            margin: 40px 0 5px;
+            padding: 25px 0 5px;
+            text-align: center;
+            background: white;
+        }
+        .navbar li {display: inline-block;}
+        .navbar li:after {
+            content: "|";
+            color: #606060;
+            display: inline-block;
+            vertical-align:top;
+        }
+        .navbar li:last-child:after {content: none;}
+        .navbar a {
+            text-decoration: none;
+            font-family: 'Ubuntu Condensed', sans-serif;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 20px;
+            margin: 0 34px 0 30px;
+            font-size: 17px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: color .2s;
+        }
+        .navbar a, .menu-main a:visited {color: #9d999d;}
+        .navbar a.current, .menu-main a:hover{color: #feb386;}
+        .navbar a:before,
+        .navbar a:after {
+            content: "";
+            position: absolute;
+            height: 4px;
+            top: auto;
+            right: 50%;
+            bottom: -5px;
+            left: 50%;
+            background: #feb386;
+            transition: .8s;
+        }
+        .navbar a:hover:before, .navbar .current:before {left: 0;}
+        .navbar a:hover:after, .navbar .current:after {right: 0;}
+            @media (max-width: 550px) {
+        .navbar {padding-top: 0;}
+        .navbar li {display: block;}
+        .navbar li:after {content: none;}
+        .navbar a {
+            padding: 25px 0 20px;
+            margin: 0 30px;
+        }
+    </style>
 </head>
-<div class="navbar">
-    <a href="{% url 'auth:log_out' %}">Home</a>
-    <a href="{% url 'book:book_list' %}">Books</a>
-    <a href="{% url 'order:orders' %}">Orders</a>
-    {% if user.role == 1 %}
-    <a href="{% url 'author:authors' %}">Authors</a>
-    <a href="{% url 'auth:users' %}">Users</a>
-    {% endif %}
-    <a href="{% url 'auth:log_out' %}">log out</a>
+<body class="body">
+    <div class="navbar">
+        <li><a href="{% url 'auth:log_out' %}">Home</a></li>
+        <li><a href="{% url 'book:book_list' %}">Books</a></li>
+        <li><a href="{% url 'order:orders' %}">Orders</a></li>
+        {% if user.role == 1 %}
+        <li><a href="{% url 'author:authors' %}">Authors</a></li>
+        <li><a href="{% url 'auth:users' %}">Users</a></li>
+        {% endif %}
+        <li><a href="{% url 'auth:log_out' %}">log out</a></li>
+    </div>
     {% block content %}
     {% endblock %}
-</div>
-
+</body>
 
 

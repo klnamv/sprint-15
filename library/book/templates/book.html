@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .dev{
+            font-family: sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -11,9 +16,10 @@
 <h1 style="text-align: center">{{book.name}}</h1>
 <form action="{% url 'order:create_order' id=book.id %}" method="get">
     <div class="dev">
+
         <h3> Name: {{book.name}}</h3>
-        <h3> Description: {{book.description}}</h3>
-        <h3> Count: {{book.count}}</h3>
+        <p> Description: {{book.description}}</p>
+        <h4> Count: {{book.count}}</h4>
 
         <button type="submit">Order</button>
     </div>

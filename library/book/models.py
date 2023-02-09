@@ -74,6 +74,7 @@ class Book(models.Model):
             return None
 
         book = Book(name=name, description=description, count=count)
+        book.save()
         if (authors is not None):
             for elem in authors:
                 book.authors.add(elem)

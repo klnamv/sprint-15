@@ -23,6 +23,7 @@
             margin-left: 25px;
         }
 
+
         .btn-primary{
             text-align: center;
             background: #fefae0;
@@ -46,23 +47,17 @@
         {% csrf_token %}
         {{ register_form }}
 
-            <label for="f_name">First name</label>
             <input class="input" type="text" placeholder="First name" name="f_name"></br>
 
-            <label for="m_name">Middle name</label>
             <input class="input" type="text" placeholder="Middle name" name="m_name"></br>
 
-            <label for="l_name">Last name</label>
             <input class="input" type="text" placeholder="Last name" name="l_name"></br>
 
-            <label for="email">Email</label>
             <input class="input" type="email" placeholder="Email" name="email"></br>
 
-            <label for="password">Password</label>
             <input class="input" type="password" placeholder="Password" name="password"></br>
 
-            <label for="password2">Repeat Password</label>
-            <input class="input" type="password" placeholder="password" name="password2"></br>
+            <input class="input" type="password" placeholder="Repeat password" name="password2"></br>
 
             <label for="is_admin">Admin</label>
             <input class="input" type="checkbox" name="is_admin"></br>

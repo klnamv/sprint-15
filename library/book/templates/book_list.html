@@ -3,31 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <title>Library</title>
+    <style>
+        .search{
+            margin-left: auto;
+            margin-right: auto;
+            width: 340px;
+            height: 50px;
+
+
+        }
+
+        .table{
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+            font-size: 16px;
+            border-radius: 10px;
+            text-align: left;
+            width: 80%;
+            background: white;
+        }
+        .f_line{
+            background: #ccd5ae;
+            text-align: center;
+            font-size: 18px;
+        }
+        .th, td{
+            width: 45%;
+            padding: 20px;
+        }
+
+        .new_book
+
+    </style>
 </head>
 
 <body>
-{% extends 'base.html' %}
-{% block content %}
-<h1 style="text-align: center">All books</h1>
+    {% extends 'base.html' %}
+    {% block content %}
+    <h1 style="text-align: center">BOOKS</h1>
 
-<form method="POST">
-    {% csrf_token %}
-    <input type="search" placeholder="Search" name="search">
-    <button type="submit">search</button>
-</form>
+    <form method="POST" class="search">
+        {% csrf_token %}
+        <input type="search" placeholder="SEARCH" name="search" class="input">
+        <button type="submit">search</button>
+    </form>
 
-<form action="" method="get">
-    {% for book in books %}
-    <div class="dev">
-        <h3> Name: {{book.name}}</h3>
-        <h3> Description: {{book.description}}</h3>
-        <h3> Count: {{book.count}}</h3>
-        <h3>id: {{book.id}}</h3>
-        <a href="{% url 'book:book' book.id %}">more..</a>
-    </div>
-    {% endfor %}
-</form>
-{% endblock %}
+    <form method="GET" action="{% url 'book:new_book' %}" class="new_book">
+        {% csrf_token %}
+        {% if user.role == 1 %}
+        <button type="submit" name="new_book">ADD NEW BOOK</button>
+        {% endif %}
+    </form>
+
+    <form action="" method="get">
+
+        <div>
+            <table class="table">
+                <tr class="f_line">
+                    <th>NAME</th>
+                    <th>AUTHOR</th>
+                    <th>DESCRIPTION</th>
+                    <th>COUNT</th>
+                    <th>ID</th>
+                    <th></th>
+                </tr>
+                {% for book in books %}
+                <tr class="o_line">
+                    <td style="width: 35%;">{{book.name}}</td>
+                    <td style="width: 20%">
+                        {% for author in book.authors.all %}
+                        {{author.name}} {{author.surname}}
+                        {% endfor %}
+                    </td>
+                    <td style="width: 50%;">{{book.description}}</td>
+                    <td style="text-align: center">{{book.count}}</td>
+                    <td style="text-align: center">{{book.id}}</td>
+                    <td>
+                        <a href="{% url 'book:book' book.id %}">Order</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </form>
+    {% endblock %}
 </body>
 
 </html>

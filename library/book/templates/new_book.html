@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <input class="input" type="text" placeholder="Name of the book" name="name"></br>
+
+<!--        <input class="input" list="authors" placeholder="Author" name="author"></br>-->
+<!--        <datalist id="authors">-->
+<!--            {% for author in authors %}-->
+<!--                <option value="{{author.name}} {{author.surname}}">-->
+<!--            {% endfor %}-->
+<!--        </datalist>-->
+
+        <select name="author">
+<!--            <option value="">select an author</option>-->
+            {% for author in authors %}
+            <option value="{{author.id}}">{{author.name}} {{author.surname}}</option>
+            {% endfor %}
+        </select></br>
+
+        <input class="input" type="text" placeholder="Description" name="description"></br>
+
+        <input class="input" type="number" placeholder="Count" name="count"></br>
+
+         <button class="btn-primary" type="submit" >Create</button>
+    </form>
+    {% endblock %}
+</body>
+</html>

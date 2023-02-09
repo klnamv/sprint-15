@@ -121,4 +121,4 @@ class Author(models.Model):
         """
         returns data for json request with QuerySet of all authors
         """
-        return Author.objects.all()
+        return list(Author.objects.all())
