@@ -56,6 +56,7 @@
         {% endif %}
     </form>
 
+
     <form action="" method="get">
 
         <div>
@@ -67,6 +68,9 @@
                     <th>COUNT</th>
                     <th>ID</th>
                     <th></th>
+                    {% if user.role == 1 %}
+                    <th>REMOVE</th>
+                    {% endif %}
                 </tr>
                 {% for book in books %}
                 <tr class="o_line">
@@ -80,8 +84,13 @@
                     <td style="text-align: center">{{book.count}}</td>
                     <td style="text-align: center">{{book.id}}</td>
                     <td>
-                        <a href="{% url 'book:book' book.id %}">Order</a>
+                        <a href="{% url 'book:book' book.id %}">ORDER</a>
                     </td>
+                    {% if user.role == 1 %}
+                    <td>
+                        <a href="{% url 'book:remove' book.id %}">REMOVE</a>
+                    </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </table>

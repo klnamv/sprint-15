@@ -22,7 +22,10 @@
     {% extends 'base.html' %}
     {% block content %}
 <div>
-<form action="" method="get">
+    <form action="{% url 'author:add_new_author' %}" method="GET">
+        <button type="submit">ADD AUTHOR</button>
+    </form>
+<!--<form action="" method="get">-->
     <h1  class="pos_h" >Information about all authors:</h1>
     <ul>
     {% for author in authors %}
@@ -31,11 +34,13 @@
             <p>Surname:  {{ author.surname }}</p>
             <p>Patronymic:  {{ author.patronymic }}</p>
             <p>Books:  {{ author.books }}</p>
+            <form action="{% url 'author:remove' author.id %}">
+            <button type="submit">REMOVE</button>
+            </form>
         </div>
-
     {% endfor %}
-        </ul>
-</form>
+    </ul>
+<!--</form>-->
 </div>
 {% endblock %}
 </body>
