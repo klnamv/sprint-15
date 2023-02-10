@@ -1,7 +1,7 @@
 from django.db import models
-
 import author.models
-
+from django.utils.html import format_html
+from author.models import Author
 
 class Book(models.Model):
     """
@@ -28,7 +28,8 @@ class Book(models.Model):
         Magic method is redefined to show all information about Book.
         :return: book id, book name, book description, book count, book authors
         """
-        return f"'id': {self.id}, 'name': '{self.name}', 'description': '{self.description}', 'count': {self.count}, 'authors': {[author.id for author in self.authors.all()]}"
+        return f"'id': {self.id}, 'name': '{self.name}', 'description': '{self.description}', 'count': {self.count}, " \
+               f"'authors': {[author.id for author in self.authors.all()]}"
 
     def __repr__(self):
         """
@@ -142,3 +143,13 @@ class Book(models.Model):
         returns data for json request with QuerySet of all books
         """
         return list(Book.objects.all())
+
+    def get_authors(self):
+        return format_html(
+            '<span">{}</span>',
+            [{'id': author.id, 'name': author.name, 'surname': author.surname, 'patronymic': author.patronymic} for author in self.authors.all()]
+        )
+
+
+
+
