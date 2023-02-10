@@ -2,9 +2,7 @@ import datetime
 
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
-# from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
-from django.contrib import admin
 
 ROLE_CHOICES = (
     (0, 'visitor'),
@@ -239,9 +237,5 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         """
         return ROLE_CHOICES[self.role][1]
 
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name')
-    list_filter = ('id', 'first_name')
-        # fields = ['name', ]
 
-admin.site.register(CustomUser, CustomUserAdmin)
+
