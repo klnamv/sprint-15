@@ -46,3 +46,6 @@ def create_book(request):
         print(e)
     return render(request, 'new_book.html', context)
 
+def remove(request, id):
+    Book.delete_by_id(id)
+    return redirect('book:book_list')

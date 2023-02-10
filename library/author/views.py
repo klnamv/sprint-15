@@ -21,7 +21,7 @@ def authors_info(request):
             'name': author.name,
             'surname': author.surname,
             'patronymic': author.patronymic,
-
+            'id' : author.id
         }
         if not new_author_books:
             new_author['books'] = "No books"
@@ -30,6 +30,7 @@ def authors_info(request):
         new_authors.append(new_author)
 
     context = {'authors': new_authors}
+    # context = {'author':authors}
 
     return render(request, 'authors_info.html', context)
 
@@ -38,22 +39,29 @@ def authors_info(request):
 def create_author(request):
     if request.user.role != 1:
         return redirect('book:book_list')
-    name = request.POST.get('author_name')
-    surname = request.POST.get('surname')
-    patronymic = request.POST.get('patronymic')
-    Author.create(name, surname, patronymic)
+    if request.method == "POST":
+        name = request.POST.get('author_name')
+        surname = request.POST.get('surname')
+        patronymic = request.POST.get('patronymic')
+        Author.create(name, surname, patronymic)
+        return redirect('author:authors')
 
     return render(request, 'create_author.html')
 
 
+
 @csrf_exempt
-def remove_author(request):
+def remove_author(request, id):
+
     if request.user.role != 1:
         return redirect('book:book_list')
-    author_id = request.POST.get('author_id')
-    author = Author.get_by_id(author_id)
+    # author_id = request.POST.get('author_id')
+    # author = Author.get_by_id(author_id)
 
-    if len(Book.objects.filter(authors=author)) <= 0:
-        Author.delete_by_id(author_id)
+    # if len(Book.objects.filter(authors=author)) <= 0:
+    #     Author.delete_by_id(author_id)
 
-    return render(request, 'remove_author.html', status=400)
+    Author.delete_by_id(id)
+
+    # return render(request, 'remove_author.html', status=400)
+    return redirect('author:authors')
